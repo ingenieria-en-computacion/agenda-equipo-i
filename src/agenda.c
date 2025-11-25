@@ -75,7 +75,19 @@ void ordenar_contactos(Agenda *a){
  * Esta función sirve para ordenar los contactos por nombres de forma descendente
  */
 void ordenar_contactos_inv(Agenda *a){
-   
+    int i, j;
+    Contacto temp;
+
+    for(i = 0; i < a->num_contactos; i++){
+        for(j = 0; j < a->num_contactos - i - 1; j++){
+            // CAMBIO AQUÍ: Se intercambia si el nombre actual es alfabéticamente MENOR que el siguiente
+            if(strcmp(a->contactos[j].nombre, a->contactos[j+1].nombre) < 0){
+                temp = a->contactos[j];
+                a->contactos[j] = a->contactos[j+1];
+                a->contactos[j+1] = temp;
+            }
+        }
+    }
 }
 
 
@@ -104,7 +116,7 @@ void leer_contacto(Contacto *c){
     printf("Ingrese el mes de nacimiento (1-12): ");
     int mes;
     scanf("%d", &mes);
-    c->mes_nacimiento = mes - 1; // Ajuste para usar enum
+    c->mes_nacimiento = mes; // Ajuste para usar enum
 
     printf("Ingrese el día de nacimiento: ");
     scanf("%d", &c->dia_nacimiento);
